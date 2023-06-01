@@ -77,6 +77,21 @@ public class TheaterService {
 		 theaterrepo.deleteById(id);
 		
 	}
+	public long gettheaters()
+	{
+	  return  theaterrepo.count();
+		
+	}
+	
+	
+	public Theater getseats(int thid)
+	{
+	   
+	return  theaterrepo.findById(thid).get();
+		
+	  
+		
+	}
 	
 	public void deleteThMovie(int movid)
 	{

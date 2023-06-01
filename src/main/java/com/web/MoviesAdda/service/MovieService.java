@@ -44,6 +44,11 @@ public class MovieService {
 		movierepo.save(mov);
 		return mov;
 	}
+	public long getmovies()
+	{
+		return movierepo.count();
+	
+	}
 	
 	
 	

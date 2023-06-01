@@ -1,6 +1,5 @@
 package com.web.MoviesAdda.controller;
 
-import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.MoviesAdda.entity.Users;
+import com.web.MoviesAdda.model.ResetPswd;
 import com.web.MoviesAdda.model.UserModel;
 import com.web.MoviesAdda.service.UserService;
 
@@ -73,12 +73,13 @@ public class UserController {
 		}
 	
 
+
 	
-	@GetMapping("getusers")
-	public List<Users> getUsers()
+	@GetMapping("getnoofusers")
+	public long getNoofUsers()
 		{
-			List<Users> users = userservice.getUsers();
-	        return users;
+			return userservice.getUsers();
+	        
 		}
 	
 	
@@ -87,6 +88,14 @@ public class UserController {
 		{
 			Users user = userservice.saveUser(usermodel);
 		  return user;
+		}
+	
+
+	@PostMapping("resetpsw")
+	public String resetPswd(@RequestBody ResetPswd resetpswd)
+		{
+	        return userservice.resetPswd(resetpswd);
+		  
 		}
 	
 

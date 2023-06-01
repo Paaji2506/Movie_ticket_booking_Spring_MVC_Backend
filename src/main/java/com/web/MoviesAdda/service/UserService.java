@@ -1,7 +1,5 @@
 package com.web.MoviesAdda.service;
 
-import java.util.List;
-
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.web.MoviesAdda.entity.Users;
+import com.web.MoviesAdda.model.ResetPswd;
 import com.web.MoviesAdda.model.UserModel;
 import com.web.MoviesAdda.repository.UserRepo;
 
@@ -35,10 +34,10 @@ public class UserService {
 		return user;
 	}
 	
-	public List<Users> getUsers()
+	public long getUsers()
 	{
-		List<Users> users = userrepo.findAll();
-		return users;
+		return userrepo.count();
+	
 	}
 	
 	public Users getByEmail(String uemail)
@@ -53,6 +52,25 @@ public class UserService {
 		us.setLoginStatus("Deactive");
 		userrepo.save(us);
 		
+	}
+	
+	public String resetPswd(ResetPswd resetpsw)
+	{
+		Users user = userrepo.findByUemail(resetpsw.getRemail());
+		if(user!=null)
+		{
+			if(user.getUpsw().equals(resetpsw.getRoldpsw()))
+			{
+			  user.setUpsw(resetpsw.getRnewpsw());
+			  user.setUcpsw(resetpsw.getRnewpsw());
+			  userrepo.save(user);
+			  return "Password Reset Successfully";
+			}
+			else
+			  return "Enter Valid Old Password";
+		}
+		else
+			return "Invalid Email ID";
 	}
 
 }
